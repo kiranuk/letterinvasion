@@ -26,16 +26,21 @@ def move_invaders(prev, window):
 def draw_invaders(invaders, window):
     for (row, column), char in invaders.items():
         height, width = max_dimensions(window)
-        if row > height or column > width:
-            continue
-        window.addch(row, column, char)
-def kill_invader(invader, window):
-    k = []
-    user_input = getch.getch()
-    for char in invader:
+    window.addch(row, column, char)
+def kill_invader(letter, user_input):
+    k = {}
+    for char in invaders.values():
+        user_input = getch.getch()
         if  char == user_input:
-            a =window.killchar()
-    return a
+            k.replace(char, ' ')
+    return k
+
+#def life(invaders, window):
+ #   lifeterm = 10
+  #  if row > height or column > width:
+   #     lifeterm -= 1
+
+    #return lifeterm 
 
 
 def main(window):
@@ -47,9 +52,7 @@ def main(window):
         invader = create_random_letter(window)
         invaders[(invader[0], invader[1])] = invader[2]
         draw_invaders(invaders, window)
-        time.sleep(0.3)
-        if kill_invader(invader, window):
-            invaders.replace(invaders, " ")
+        time.sleep(1.5)
         window.refresh()
 
 if __name__ == '__main__':

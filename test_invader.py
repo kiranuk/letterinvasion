@@ -16,3 +16,7 @@ def test_draw_invaders():
     hieght = 500
     width = 500
     assert (letter_invader.draw_invaders({(3, 400) : 'd'}, window) == {(3, 400) : 'd'} for _ in range(0,500))
+
+def test_kill_char():
+    assert (letter_invader.kill_char('k', 'k') == ' ')
+    assert (letter_invader.kill_char('k', 'r') == 'k') 
