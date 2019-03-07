@@ -2,7 +2,7 @@ import curses
 import string
 import random
 import time
-import getch
+
 
 
 def max_dimensions(window):
@@ -15,22 +15,19 @@ def create_random_letter(window):
     return 0, column, letter
 def move_invaders(prev):
     new = {}
-    for char, (row, column) in prev.items():
+    for (row, column), char in prev.items():
         new_row = row + 1
-        new[char] = (new_row, column)
+        new[(new_row, column)] = char
     return new
 
 def draw_invaders(invaders, window):
-    for char, (row, column) in invaders.items():
+    for (row, column), char in invaders.items():
         height, width = max_dimensions(window)
         if row > height or column > width:
             continue
         window.addch(row, column, char)
-def kill_invader(invaders, window, q):
-    for char, (row, column) in invaders.items():
-        if q == -1:
-            if q == char:
-                del invaders[char]
+def kill_invader(invaders, q):
+    invaders = {key: value for key, value in invaders.items() if value is not q}
     return invaders
             
 def main(window):
@@ -39,12 +36,12 @@ def main(window):
     while True:
         window.clear()
         window.nodelay(True)
-        q = window.getch()
         invaders = move_invaders(invaders)
         invader = create_random_letter(window)
-        invaders[invader[2]] = (invader[0], invader[1])
+        invaders[(invader[0], invader[1])] = invader[2]
         draw_invaders(invaders, window)
-        kill_invader(invaders,window, q)
+        q = window.getch()
+        kill_invader(invaders, q)
         time.sleep(0.4)
         window.refresh()
 
