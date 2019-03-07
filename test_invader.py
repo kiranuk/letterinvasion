@@ -11,8 +11,8 @@ def test_create_random_letter():
 
 def test_move_invaders():
     height = 500
-    assert (letter_invader.move_invaders({(0, 300):'r'}) == {(1, 300) : 'r'})
-    assert (letter_invader.move_invaders({(400, 300):'r'}) == {(401, 300) : 'r'})
+    assert (letter_invader.move_invaders({(0, 300):'r'}, window) == {(1, 300) : 'r'} for _ in range(0, 500))
+    assert (letter_invader.move_invaders({(400, 300):'r'}, window) == {(401, 300) : 'r'} for _ in range(0, 500))
 
 def test_draw_invaders():
     height = 500
@@ -24,3 +24,9 @@ def test_kill_invader():
     result = {(10, 50): 'd', (25, 25): 'j', (100, 230): 'r'}
     assert (letter_invader.kill_invader(value, 'k') == result)
     assert (letter_invader.kill_invader(value, 'a') == value) 
+
+def test_count_life():
+    height = 500
+    value = {(1, 3): 'a', (2, 6): 's', (500,200): 'd'}
+    result = 7
+    assert (letter_invader.count_life(value, height) == result)

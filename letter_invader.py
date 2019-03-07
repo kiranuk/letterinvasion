@@ -45,8 +45,9 @@ def count_life(invaders, height):
 
 def main(window):
     curses.curs_set(0)
-    invaders = {}    
-    while True:
+    invaders = {}
+    run = True
+    while run:
         window.clear()
         window.nodelay(True)
         height, width = max_dimensions(window)
@@ -57,9 +58,10 @@ def main(window):
         draw_invaders(invaders, window)
         window.refresh()
         kill_invader(invaders, q)
-        count_life(invaders, height)
         time.sleep(0.4)
         window.refresh()
+    if count_life(invaders, height) == 0:
+        run = False
 
 if __name__ == '__main__':
     curses.wrapper(main)
