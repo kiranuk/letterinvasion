@@ -15,39 +15,37 @@ def create_random_letter(window):
     return 0, column, letter
 def move_invaders(prev):
     new = {}
-    for (row, column), char in prev.items():
+    for char, (row, column) in prev.items():
         new_row = row + 1
-        new[(new_row, column)] = char
+        new[char] = (new_row, column)
     return new
 
 def draw_invaders(invaders, window):
-    for (row, column), char in invaders.items():
+    for char, (row, column) in invaders.items():
         height, width = max_dimensions(window)
         if row > height or column > width:
             continue
         window.addch(row, column, char)
-def kill_invader(invaders, window):
-    q = window.getch()
-    if q == -1:
-        if q == 
-            char = ' '
-    window.addch(row, column, char)
-
+def kill_invader(invaders, window, q):
+    for char, (row, column) in invaders.items():
+        if q == -1:
+            if q == char:
+                del invaders[char]
+    return invaders
             
 def main(window):
     curses.curs_set(0)
     invaders = {}    
-    inkey = window.getch()
-    
     while True:
         window.clear()
         window.nodelay(True)
+        q = window.getch()
         invaders = move_invaders(invaders)
         invader = create_random_letter(window)
-        invaders[(invader[0], invader[1])] = invader[2]
+        invaders[invader[2]] = (invader[0], invader[1])
         draw_invaders(invaders, window)
-        inkey(invaders, window)
-        time.sleep(1.5)
+        kill_invader(invaders,window, q)
+        time.sleep(0.4)
         window.refresh()
 
 if __name__ == '__main__':
