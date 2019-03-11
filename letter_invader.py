@@ -45,12 +45,20 @@ def main(window):
     invaders = {}
     global height, width
     height, width = max_dimensions(window)
+    window.nodelay(True)
+    state = create_letters() # state will be something like {'a' :(10, 10), 'x' :(5,5)}
     while True:
         window.clear()
-        window.nodelay(True)
+        q = window.getch() # Suppose someone types 'a'
+        state, killed = process_input(state, q) # State will change into {'x' :(5,5)}
+        state = create_random_letter(state)
+        # Any other functions like this
+        update_display(state)
+        
+
         invader = create_random_letter(width)
         invaders = move_invaders(invaders, height)
-        invaders[(invader[0], invader[1])] = invader[2]
+        invaders[(invader[0], invader[1])] = invader[2] 
         q = window.getch()
         if q != -1:
             invaders = kill_invader(invaders, chr(q))
