@@ -7,8 +7,8 @@ height, width = 500, 500
 def test_create_random_letter():
     letter = random.choice(string.ascii_lowercase)
     column = random.randrange(0, 500)
-    assert (letter_invader.create_random_letter(width)  == 0, column, letter) 
-    assert (letter_invader.create_random_letter(width)  == 0, column, letter)
+    assert letter_invader.create_random_letter(width)  == (0, column, letter)
+    assert letter_invader.create_random_letter(width)  == (0, column, letter)
 
 def test_move_invaders():
     assert letter_invader.move_invaders({(0, 300):'r'}, height) == {(1, 300) : 'r'}
