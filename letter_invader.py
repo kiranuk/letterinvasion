@@ -33,11 +33,14 @@ def kill_invader(invaders, q):
 
 def count_life(invaders, height):
     life = 10
-    max_row = height - 1
-    for (row, column), char in invaders.items():
-        if max_row == row:
+    for (row, column), char in invaders.items(): 
+        max_row = height - 1
+        if row == max_row:
             life -= 1
+        if life == 0:
+            break
     return life
+
 
 
 def main(window):
@@ -45,9 +48,10 @@ def main(window):
     invaders = {}
     global height, width
     height, width = max_dimensions(window)
+    t = 0.3
+    window.nodelay(True)
     while True:
         window.clear()
-        window.nodelay(True)
         invader = create_random_letter(width)
         invaders = move_invaders(invaders, height)
         invaders[(invader[0], invader[1])] = invader[2]
@@ -57,10 +61,9 @@ def main(window):
         draw_invaders(invaders, window)
         window.refresh()
         kill_invader(invaders, q)
-        time.sleep(0.4)
+        time.sleep(t+0.1)     
+        count_life(invaders, height)
         window.refresh()
-        if count_life(invaders, height) == 0:
-            break
-
 if __name__ == '__main__':
     curses.wrapper(main)
+    
