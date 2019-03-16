@@ -28,12 +28,18 @@ def draw_invaders(invaders, invader, window):
             continue
         window.addch(row, column, char)
 
-def kill_invader(invaders, q):
-    for (row, column) in invaders.keys():
-        max_row = row - 1
-        if row == max_row:
-            invaders = {key: value for key, value in invaders.items() if value is not q if key is not max_row}
+def kill_invaders(invaders, q):
+    a = []
+    for (row, column), char in invaders.items():
+        if char is q:
+            t = row, column
+            a.append(t)
+            b = max(a)
+        if b in invaders.items():
+            invaders.pop(b)  
     return invaders
+        
+                    
 
 def count_life(invaders, height):
     count = 0
@@ -68,5 +74,6 @@ def main(window):
             break
         window.refresh()
 if __name__ == '__main__':
-    curses.wrapper(main)
-    
+    #curses.wrapper(main)
+    init = {(20,20): 'e', (330,20): 'e', (120,30): 'k', (90,220): 'k'}
+print(kill_invaders(init, 'k'))
