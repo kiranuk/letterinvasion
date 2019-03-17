@@ -2,6 +2,7 @@ import curses
 import string
 import random
 import time
+from collections import Counter
 
 def max_dimensions(window):
     height, width = window.getmaxyx()
@@ -29,17 +30,19 @@ def draw_invaders(invaders, invader, window):
         window.addch(row, column, char)
 
 def kill_invaders(invaders, q):
-    a = []
+    list1 = []
     for (row, column), char in invaders.items():
+       
         if char is q:
-            t = row, column
-            a.append(t)
-            b = max(a)
-        if b in invaders.items():
-            invaders.pop(b)  
+            t = (row, column)
+            list1.append(t)
+            continue
+    if list1:
+        del invaders[max(list1)]
+    
     return invaders
-        
-                    
+
+
 
 def count_life(invaders, height):
     count = 0
@@ -49,7 +52,10 @@ def count_life(invaders, height):
             count += 1
     return count
 
-
+def display_life(window):
+    #v = count_life(invaders, height)
+    char = ':<12'
+    window.hline(height-2, width-2, ord(char))
 
 def main(window):
     curses.curs_set(0)
@@ -65,15 +71,18 @@ def main(window):
         invaders = move_invaders(invaders, height)
         q = window.getch()
         draw_invaders(invaders, invader, window)
+        display_life(window)
         window.refresh()
-        kill_invader(invaders, q)
+        kill_invaders(invaders, q)
         time.sleep(t)
         if q != -1:
-            invaders = kill_invader(invaders,chr(q))
+            invaders = kill_invaders(invaders,chr(q))
         if count_life(invaders, height) == 10:
+            
             break
         window.refresh()
 if __name__ == '__main__':
-    #curses.wrapper(main)
-    init = {(20,20): 'e', (330,20): 'e', (120,30): 'k', (90,220): 'k'}
-print(kill_invaders(init, 'k'))
+    curses.wrapper(main)
+    #init = {(300,20): 'g',(400,200): 'k',(500,300): 'k',(200,100): 'g'}
+    #kill_invaders(init, 'k')
+
