@@ -7,4 +7,4 @@ Now the question is how to kill these invaders, simple just type the letter whic
 It'simple right, but be careful invaders gets increment their speed in certain time limit.
 User has 10 chances only, if user misses 10 letters and they reaches the floor then the game will break, it means user lose the game.
 By playing this game will increase user's knowledge with position of keys and also improves user's typing speed.
-Hope i give enough details,Now just kepp calm and kill all invade
+Hope i give enough details,Now just keep calm and kill all invaders. BEST OF LUCK
