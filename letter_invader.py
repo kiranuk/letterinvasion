@@ -1,28 +1,11 @@
 import curses
-import string
-import random
 import time
+import game_setup
 
 
 def max_dimensions(window):
     height, width = window.getmaxyx()
     return height - 2, width - 1
-
-
-def create_random_letter(width):
-    letter = random.choice(string.ascii_lowercase)
-    column = random.randrange(0, width)
-    return 0, column, letter
-
-
-def move_invaders(invaders, height):
-    new = {}
-    for (row, column), char in invaders.items():
-        new_row = row + 1
-        if new_row > height:
-            new_row -= 1
-        new[(new_row, column)] = char
-    return new
 
 
 def draw_invaders(invaders, invader, window):
@@ -31,27 +14,6 @@ def draw_invaders(invaders, invader, window):
         if row > height or column > width:
             continue
         window.addch(row, column, char)
-
-
-def kill_invaders(invaders, q):
-    list1 = []
-    for (row, column), char in invaders.items():
-        if char is q:
-            t = (row, column)
-            list1.append(t)
-            continue
-    if list1:
-        del invaders[max(list1)]
-    return invaders
-
-
-def count_life(invaders, height):
-    count = 10
-    for (row, column), char in invaders.items():
-        max_row = height - 1
-        if row > max_row:
-            count -= 1
-    return count
 
 
 def main(window):
@@ -66,16 +28,16 @@ def main(window):
     t += 0.1
     while True:
         window.clear()
-        invader = create_random_letter(width)
-        invaders = move_invaders(invaders, height)
+        invader = game_setup.create_random_letter(width)
+        invaders = game_setup.move_invaders(invaders, height)
         q = window.getch()
         draw_invaders(invaders, invader, window)
         window.refresh()
-        kill_invaders(invaders, q)
+        game_setup.kill_invaders(invaders, q, t)
         time.sleep(t)
         if q != -1:
-            invaders = kill_invaders(invaders, chr(q))
-        if count_life(invaders, height) == 0:
+            invaders = game_setup.kill_invaders(invaders, chr(q), t)
+        if game_setup.count_life(invaders, height) == 0:
             break
 
 
