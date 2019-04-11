@@ -1,8 +1,9 @@
+"Import random module to get random choice and string to get alphabet letter"
 import random
 import string
 
-
 def create_random_letter(width):
+    "Create a letter in random columns with count zero"
     letter = random.choice(string.ascii_lowercase)
     column = random.randrange(0, width)
     count = 0
@@ -10,6 +11,7 @@ def create_random_letter(width):
 
 
 def move_invaders(invaders, height):
+    "Move the letters downward"
     new = {}
     for (row, column), (char, count) in invaders.items():
         new_row = row + 1
@@ -19,12 +21,13 @@ def move_invaders(invaders, height):
     return new
 
 
-def kill_invaders(invaders, q):
+def kill_invaders(invaders, user_input):
+    "Kill the letter with user input initially change with '*'"
     list1 = []
     for (row, column), (char, count) in invaders.items():
-        if char is q:
-            t = (row, column)
-            list1.append(t)
+        if char is user_input:
+            track = (row, column)
+            list1.append(track)
             continue
     if list1:
         invaders[max(list1)] = ("*", count)
@@ -32,6 +35,7 @@ def kill_invaders(invaders, q):
 
 
 def eliminating_char(invaders):
+    "Eliminate '*' char by using count"
     del_char = []
     for (row, column), (char, count) in invaders.items():
         if "*" in char:
@@ -44,8 +48,9 @@ def eliminating_char(invaders):
 
 
 def count_life(invaders, height):
+    "Set-up the chances to miss the letter by applying life"
     life = 10
-    for (row, column), (char, count) in invaders.items():
+    for (row, column) in invaders.keys():
         max_row = height - 1
         if row > max_row:
             life -= 1
