@@ -3,4 +3,5 @@ more-itertools==6.0.0
 pluggy==0.8.1
 py==1.7.0
 pytest==4.2.1
+coverage==4.5.2
 
