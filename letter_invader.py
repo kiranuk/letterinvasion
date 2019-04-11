@@ -26,10 +26,6 @@ def main(window):
     lag = 0
     count = 0
     while True:
-        # if lag == 3:
-        #     invader
-        #     lag = 0
-        # lag += 1
         window.clear()
         invader = game_setup.create_random_letter(width)
         invaders = game_setup.move_invaders(invaders, height)
