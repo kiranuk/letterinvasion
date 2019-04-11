@@ -1,4 +1,4 @@
-"Import random module to get random choice and string to get alphabet letter"
+"Import random module to get random choice and string to get ascii_lowercase"
 import random
 import string
 
