@@ -20,7 +20,7 @@ def main(window):
     curses.init_color(curses.COLOR_BLACK, 0, 0, 0)
     curses.curs_set(0)
     invaders = {}
-    global height, width, list1
+    global height, width
     height, width = max_dimensions(window)
     window.nodelay(True)
     lag = 0
@@ -37,7 +37,7 @@ def main(window):
         window.refresh()
         q = window.getch()
         game_setup.kill_invaders(invaders, q)
-        game_setup.eliminating_char(invaders, list1, count)
+        game_setup.eliminating_char(invaders)
         time.sleep(0.9)
         window.clear()
         window.refresh()
