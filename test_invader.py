@@ -33,22 +33,22 @@ def test_eliminating_char():
              (40, 50): ('*', 0),
              (100, 230): ('r', 0),
              (25, 25): ('j', 0)}
-    update_value =  {(10, 50): ('d', 0),
-             (20, 30): ('k', 0),
-             (40, 50): ('*', 1),
-             (100, 230): ('r', 0),
-             (25, 25): ('j', 0)}
-    updat_value1 =  {(10, 50): ('d', 0),
-             (20, 30): ('k', 0),
-             (40, 50): ('*', 2),
-             (100, 230): ('r', 0),
-             (25, 25): ('j', 0)}
+    update_value = {(10, 50): ('d', 0),
+                    (20, 30): ('k', 0),
+                    (40, 50): ('*', 1),
+                    (100, 230): ('r', 0),
+                    (25, 25): ('j', 0)}
+    updat_value1 = {(10, 50): ('d', 0),
+                    (20, 30): ('k', 0),
+                    (40, 50): ('*', 3),
+                    (100, 230): ('r', 0),
+                    (25, 25): ('j', 0)}
 
     result = {(10, 50): ('d', 0),
-             (20, 30): ('k', 0),
-             (100, 230): ('r', 0),
-             (25, 25): ('j', 0)}
-    assert game_setup.eliminating_char(value) == update_value 
+              (20, 30): ('k', 0),
+              (100, 230): ('r', 0),
+              (25, 25): ('j', 0)}
+    assert game_setup.eliminating_char(value) == update_value
     assert game_setup.eliminating_char(updat_value1) == result
 
 def test_count_life():
