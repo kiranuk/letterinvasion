@@ -2,6 +2,7 @@
 import random
 import string
 
+
 def create_random_letter(width):
     "Create a letter in random columns with count zero"
     letter = random.choice(string.ascii_lowercase)

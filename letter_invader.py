@@ -26,11 +26,15 @@ def main(window):
     global height, width
     height, width = max_dimensions(window)
     window.nodelay(True)
+    invader = game_setup.create_random_letter(width)
     count = 0
+    lag = 0
     while True:
         window.clear()
-        invader = game_setup.create_random_letter(width)
-        invaders = game_setup.move_invaders(invaders, height)
+        if lag == 6:
+            invader = game_setup.create_random_letter(width)
+            lag = 0
+            invaders = game_setup.move_invaders(invaders, height)
         draw_invaders(invaders, invader, window, count)
         window.refresh()
         user_input = window.getch()
@@ -41,6 +45,7 @@ def main(window):
         window.refresh()
         if user_input != -1:
             invaders = game_setup.kill_invaders(invaders, chr(user_input))
+        lag += 1
         if game_setup.count_life(invaders, height) == 0:
             break
 
